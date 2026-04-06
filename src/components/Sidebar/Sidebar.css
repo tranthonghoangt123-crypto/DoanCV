@@ -1,0 +1,192 @@
+/* Sidebar.css */
+
+/* ============================================
+   SIDEBAR CORE (FIX TRÀN & ĐÈ NỘI DUNG)
+   ============================================ */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 280px;
+  height: 100vh;
+  background: #ffffff;
+  z-index: 1000;
+  border-right: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.03);
+  transform: translateX(-100%);
+  transition: transform 0.4s ease;
+  overflow-x: hidden; /* Ngăn chặn trượt ngang */
+}
+
+@media (min-width: 1200px) {
+  .sidebar { transform: translateX(0); } /* Cố định trên Desktop */
+}
+
+.sidebar.active { transform: translateX(0); }
+
+.sidebar-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 15px;
+}
+
+/* ============================================
+   PROFILE & CONTACT SECTION (DỜI LÊN TRÊN)
+   ============================================ */
+.profile-card-mini {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 12px;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Chống méo ảnh */
+  border-radius: 50%;
+  border: 3px solid var(--primary-color);
+  background: #fff;
+}
+
+.online-badge {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 14px;
+  height: 14px;
+  background: #10b981;
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+
+.user-name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.user-role {
+  font-size: 0.75rem;
+  color: var(--primary-color);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* Thông tin liên hệ dời lên */
+.header-contact {
+  margin: 15px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.c-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: #475569;
+}
+
+.c-info svg {
+  color: var(--primary-color);
+  font-size: 0.95rem;
+  min-width: 16px;
+}
+
+/* Mạng xã hội dời lên */
+.header-social {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.s-icon {
+  width: 36px;
+  height: 36px;
+  background: #f1f5f9;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  transition: all 0.3s ease;
+}
+
+.s-icon:hover {
+  background: var(--primary-color);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(14, 165, 233, 0.2);
+}
+
+/* ============================================
+   NAVIGATION (KHÔNG DẤU CHẤM)
+   ============================================ */
+.nav-menu {
+  list-style: none; /* Bỏ dấu chấm đầu hàng */
+  padding: 0;
+  margin: 0;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  color: #475569;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: background 0.3s ease; /* Không dùng translateX */
+}
+
+.nav-link:hover {
+  background: rgba(14, 165, 233, 0.08);
+  color: var(--primary-color);
+}
+
+.icon-box {
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-separator {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.05);
+  margin: 15px 0;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.sidebar-footer-simple {
+  margin-top: auto;
+  padding-top: 15px;
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.copy-text {
+  font-size: 0.7rem;
+  color: #94a3b8;
+}
+
+/* Hamburger & Overlay */
+@media (max-width: 1199px) {
+  .hamburger-menu { position: fixed; top: 15px; right: 15px; z-index: 1100; display: flex; flex-direction: column; gap: 5px; padding: 10px; background: #fff; border: 1px solid rgba(0,0,0,0.05); border-radius: 8px; cursor: pointer; }
+  .line { width: 20px; height: 2px; background: var(--primary-color); }
+  .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.1); backdrop-filter: blur(2px); z-index: 999; }
+}

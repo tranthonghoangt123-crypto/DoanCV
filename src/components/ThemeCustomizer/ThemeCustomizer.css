@@ -1,0 +1,480 @@
+/* ============================================
+   THEME CUSTOMIZER STYLES
+   ============================================ */
+
+:root {
+  --primary-color: #00d4ff;
+  --secondary-color: #ff006e;
+  --text-color: #ffffff;
+  --bg-color: #0a0e27;
+  --accent-color: #39ff14;
+}
+
+html[data-theme="dark"] {
+  --primary-color: #00d4ff;
+  --secondary-color: #ff006e;
+  --text-color: #ffffff;
+  --bg-color: #0a0e27;
+  --accent-color: #39ff14;
+}
+
+.theme-toggle-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 900;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  border: none;
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+  box-shadow: var(--glow-primary), var(--glow-secondary);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle-btn:hover {
+  transform: scale(1.1);
+  box-shadow: var(--glow-primary), var(--glow-secondary), 0 0 20px rgba(6, 182, 212, 0.6);
+}
+
+.theme-toggle-btn.active {
+  background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+}
+
+/* ============================================
+   CUSTOMIZER PANEL
+   ============================================ */
+
+.customizer-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 950;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.theme-customizer {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 350px;
+  height: 100vh;
+  background: var(--bg-color);
+  color: var(--text-color);
+  box-shadow: var(--glow-primary);
+  z-index: 1001;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  border-left: 2px solid var(--border-color);
+}
+
+.theme-customizer.active {
+  transform: translateX(0);
+}
+
+.customizer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3), 0 0 10px rgba(255, 0, 110, 0.2);
+}
+
+.customizer-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.customizer-header .close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 5px;
+}
+
+.customizer-header .close-btn:hover {
+  transform: rotate(90deg);
+}
+
+/* ============================================
+   TABS
+   ============================================ */
+
+.customizer-tabs {
+  display: flex;
+  gap: 10px;
+  padding: 15px 25px;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+  background: rgba(0, 0, 0, 0.3);
+  overflow-x: auto;
+}
+
+.tab-btn {
+  padding: 8px 15px;
+  background: transparent;
+  border: 2px solid rgba(0, 212, 255, 0.3);
+  color: var(--text-color);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.tab-btn:hover {
+  border-color: var(--primary-color);
+  background: rgba(0, 212, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.tab-btn.active {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  border-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+}
+
+.customizer-content {
+  padding: 25px;
+}
+
+.customizer-section {
+  margin-bottom: 20px;
+}
+
+.section-title {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================
+   COLOR INPUTS
+   ============================================ */
+
+.color-input-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.color-picker {
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--primary-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+}
+
+.color-picker:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+}
+
+.color-picker:focus {
+  outline: none;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+}
+
+.color-value {
+  flex: 1;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: var(--text-color);
+  padding: 10px 12px;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  user-select: all;
+}
+
+/* ============================================
+   MODE TOGGLE
+   ============================================ */
+
+.mode-toggle {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mode-toggle:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+}
+
+.mode-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* ============================================
+   HELP TEXT & TAB CONTENT
+   ============================================ */
+
+.help-text {
+  font-size: 0.875rem;
+  color: var(--text-color);
+  opacity: 1;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.tab-content {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   DIVIDER
+   ============================================ */
+
+.customizer-divider {
+  height: 1px;
+  background: rgba(0, 212, 255, 0.2);
+  margin: 20px 0;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.reset-btn {
+  width: 100%;
+  padding: 12px;
+  background: rgba(255, 0, 110, 0.1);
+  color: #ff006e;
+  border: 2px solid #ff006e;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.reset-btn:hover {
+  background: #ff006e;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px rgba(255, 0, 110, 0.6);
+}
+
+/* ============================================
+   PRESET BUTTONS
+   ============================================ */
+
+.preset-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.preset-btn {
+  padding: 12px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.preset-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.preset-blue {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+}
+
+.preset-blue:hover {
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+}
+
+.preset-ocean {
+  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+}
+
+.preset-ocean:hover {
+  box-shadow: 0 0 25px rgba(0, 212, 255, 0.6);
+}
+
+.preset-sunset {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e72 100%);
+  box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+}
+
+.preset-sunset:hover {
+  box-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
+}
+
+.preset-forest {
+  background: linear-gradient(135deg, #27ae60 0%, #16a085 100%);
+  box-shadow: 0 0 10px rgba(39, 174, 96, 0.3);
+}
+
+.preset-forest:hover {
+  box-shadow: 0 0 20px rgba(39, 174, 96, 0.6);
+}
+
+.preset-midnight {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  box-shadow: 0 0 10px rgba(44, 62, 80, 0.3);
+}
+
+.preset-midnight:hover {
+  box-shadow: 0 0 20px rgba(44, 62, 80, 0.6);
+}
+
+.preset-candy {
+  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
+}
+
+.preset-candy:hover {
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+
+.theme-customizer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.theme-customizer::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+.theme-customizer::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 3px;
+}
+
+.theme-customizer::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-color);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+  .theme-toggle-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 55px;
+    height: 55px;
+    font-size: 1.5rem;
+  }
+
+  .theme-customizer {
+    width: 100%;
+  }
+
+  .customizer-content {
+    padding: 20px;
+  }
+
+  .preset-buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .theme-toggle-btn {
+    bottom: 15px;
+    right: 15px;
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+
+  .customizer-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .customizer-content {
+    padding: 15px;
+  }
+
+  .color-input-group {
+    gap: 8px;
+  }
+
+  .color-picker {
+    width: 45px;
+    height: 45px;
+  }
+
+  .preset-buttons {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .preset-btn {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+}

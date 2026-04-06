@@ -1,0 +1,271 @@
+/* Sử dụng biến toàn cục từ main.css */
+
+/* ============================================
+   ABOUT SECTION STYLES
+   ============================================ */
+.about-section {
+  padding: 100px 20px;
+  background-color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hiệu ứng nền mờ ảo (Glow Orbs) */
+.about-section::before,
+.about-section::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  opacity: 0.1;
+}
+
+.about-section::before {
+  top: -10%;
+  left: -5%;
+  width: 400px;
+  height: 400px;
+  background: var(--primary-color);
+}
+
+.about-section::after {
+  bottom: -10%;
+  right: -5%;
+  width: 500px;
+  height: 500px;
+  background: var(--secondary-color);
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   HEADER STYLES
+   ============================================ */
+.section-header {
+  text-align: center;
+  margin-bottom: 70px;
+  animation: fadeInDown 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.section-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  border-radius: 2px;
+}
+
+.section-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  margin-top: 20px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================
+   CONTENT STYLES
+   ============================================ */
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 60px;
+  margin-bottom: 80px;
+  align-items: center;
+  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+}
+
+/* Text Section */
+.about-text h3 {
+  font-size: 2rem;
+  color: var(--text-main);
+  margin-bottom: 25px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.about-text p {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+/* Features Section (Nổi bật viền) */
+.about-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.feature-item {
+  background: rgba(255, 255, 255, 0.75);
+  padding: 30px 25px;
+  border-radius: 16px;
+  /* Viền 2px nổi bật */
+  border: 2px solid rgba(14, 165, 233, 0.2); 
+  text-align: left;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.feature-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 0;
+  background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+  transition: height 0.4s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.95);
+  /* Đổi màu viền khi hover */
+  border-color: var(--primary-color);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(14, 165, 233, 0.15);
+}
+
+.feature-item:hover::before {
+  height: 100%;
+}
+
+.feature-icon {
+  font-size: 2.2rem;
+  color: var(--primary-color);
+  margin-bottom: 18px;
+  display: inline-block;
+  padding: 12px;
+  background: rgba(14, 165, 233, 0.1);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.feature-item h4 {
+  font-size: 1.15rem;
+  margin-bottom: 10px;
+  color: var(--text-main);
+  font-weight: 800;
+}
+
+.feature-item p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* ============================================
+   STATS STYLES (Nổi bật khối thống kê)
+   ============================================ */
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
+}
+
+.stat-box {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 35px 20px;
+  border-radius: 16px;
+  border: 2px solid rgba(14, 165, 233, 0.15);
+  text-align: center;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.stat-box:hover {
+  transform: translateY(-10px);
+  background: #ffffff;
+  border-color: var(--primary-color);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 0 20px rgba(14, 165, 233, 0.1);
+}
+
+.stat-box h3 {
+  font-size: 2.8rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+  color: var(--text-main);
+  transition: color 0.3s ease;
+}
+
+.stat-box:hover h3 {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stat-box p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 1024px) {
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+  .about-text { text-align: center; }
+}
+
+@media (max-width: 768px) {
+  .section-title { font-size: 2.2rem; }
+  .about-features { grid-template-columns: 1fr; }
+  .about-stats { grid-template-columns: repeat(2, 1fr); }
+  .stat-box h3 { font-size: 2.2rem; }
+}
+
+@media (max-width: 480px) {
+  .about-stats { grid-template-columns: 1fr; }
+}

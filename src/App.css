@@ -1,0 +1,32 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  margin-left: 0;
+}
+
+/* Desktop: Add margin for fixed sidebar */
+@media (min-width: 1200px) {
+  .main-content {
+    margin-left: 280px;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app {
+    flex-direction: column;
+  }
+
+  .main-content {
+    width: 100%;
+    margin-left: 0;
+  }
+}
