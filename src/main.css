@@ -3,6 +3,8 @@
   --bg-light: #f8fafc;       /* Nền xám cực nhạt */
   --primary-color: #0ea5e9;  /* Xanh Sky Blue */
   --secondary-color: #4f46e5;/* Tím Indigo */
+  --primary-rgb: 14, 165, 233;     /* Hỗ trợ bóng đổ rgba */
+  --secondary-rgb: 79, 70, 229;    /* Hỗ trợ bóng đổ rgba */
   --text-main: #0f172a;      /* Chữ đen sẫm */
   --text-muted: #475569;     /* Chữ xám */
   --border-color: rgba(15, 23, 42, 0.08); /* Viền mờ */

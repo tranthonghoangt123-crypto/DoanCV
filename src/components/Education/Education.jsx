@@ -34,7 +34,7 @@ const Education = () => {
 
   const certificatesData = [
     { 
-      name: 'Giải Nhất Tiếng Anh', 
+      name: 'Giải Nhất ITC let\' sgo', 
       issuer: 'Cấp Trường', 
       year: '2024 - 2026' 
     }

@@ -1,269 +1,80 @@
-import React, { useState } from 'react';
-import { useTheme } from '../../context/ThemeContext';
+import React, { useState, useEffect } from 'react';
+import { FaCog, FaTimes } from 'react-icons/fa';
 import './ThemeCustomizer.css';
 
 const ThemeCustomizer = () => {
-  const { theme, updateTheme, toggleDarkMode, resetTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('colors');
 
-  const handleColorChange = (colorKey, value) => {
-    updateTheme({
-      [colorKey]: value
-    });
+  // Danh sách các theme màu sắc cài đặt sẵn
+  const colorThemes = [
+    { id: 'default', name: 'Xanh Tím', primary: '#667eea', secondary: '#764ba2' },
+    { id: 'sky', name: 'Xanh Dương', primary: '#0ea5e9', secondary: '#4f46e5' },
+    { id: 'emerald', name: 'Ngọc Lục Bảo', primary: '#10b981', secondary: '#059669' },
+    { id: 'rose', name: 'Hồng Đỏ', primary: '#f43f5e', secondary: '#e11d48' },
+    { id: 'amber', name: 'Vàng Cam', primary: '#f59e0b', secondary: '#d97706' },
+    { id: 'purple', name: 'Tím Đậm', primary: '#8b5cf6', secondary: '#6d28d9' }
+  ];
+
+  // Helper chuyển đổi Hex sang RGB để làm hiệu ứng trong suốt (rgba)
+  const hexToRgb = (hex) => {
+    const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : null;
   };
 
-  const handleQuickColorScheme = (scheme) => {
-    const schemes = {
-      purple: {
-        primaryColor: '#667eea',
-        secondaryColor: '#764ba2',
-        accentColor: '#ffd700'
-      },
-      ocean: {
-        primaryColor: '#00d4ff',
-        secondaryColor: '#0099cc',
-        accentColor: '#ff6b6b'
-      },
-      sunset: {
-        primaryColor: '#ff6b6b',
-        secondaryColor: '#ff8e72',
-        accentColor: '#ffd700'
-      },
-      forest: {
-        primaryColor: '#27ae60',
-        secondaryColor: '#16a085',
-        accentColor: '#f39c12'
-      },
-      midnight: {
-        primaryColor: '#2c3e50',
-        secondaryColor: '#34495e',
-        accentColor: '#e74c3c'
-      },
-      candy: {
-        primaryColor: '#ff69b4',
-        secondaryColor: '#ff1493',
-        accentColor: '#00ff00'
-      }
-    };
-
-    if (schemes[scheme]) {
-      updateTheme(schemes[scheme]);
+  // Khôi phục màu từ Local Storage khi load lại trang
+  useEffect(() => {
+    const savedPrimary = localStorage.getItem('theme-primary');
+    const savedSecondary = localStorage.getItem('theme-secondary');
+    
+    if (savedPrimary && savedSecondary) {
+      document.documentElement.style.setProperty('--primary-color', savedPrimary);
+      document.documentElement.style.setProperty('--secondary-color', savedSecondary);
+      document.documentElement.style.setProperty('--primary-rgb', hexToRgb(savedPrimary));
+      document.documentElement.style.setProperty('--secondary-rgb', hexToRgb(savedSecondary));
     }
+  }, []);
+
+  // Hàm xử lý đổi màu
+  const handleThemeChange = (primary, secondary) => {
+    document.documentElement.style.setProperty('--primary-color', primary);
+    document.documentElement.style.setProperty('--secondary-color', secondary);
+    document.documentElement.style.setProperty('--primary-rgb', hexToRgb(primary));
+    document.documentElement.style.setProperty('--secondary-rgb', hexToRgb(secondary));
+    
+    // Lưu lại cấu hình
+    localStorage.setItem('theme-primary', primary);
+    localStorage.setItem('theme-secondary', secondary);
   };
 
   return (
-    <>
-      <button
-        className={`theme-toggle-btn ${isOpen ? 'active' : ''}`}
-        onClick={() => setIsOpen(!isOpen)}
-        aria-label="Toggle theme customizer"
-        title="Tùy chỉnh giao diện"
-      >
-        🎨
-      </button>
-
-      {isOpen && <div className="customizer-overlay" onClick={() => setIsOpen(false)}></div>}
-
-      <div className={`theme-customizer ${isOpen ? 'active' : ''}`}>
+    <div className={`theme-customizer ${isOpen ? 'open' : ''}`}>
+      <div className="customizer-toggle" onClick={() => setIsOpen(!isOpen)}>
+        <FaCog className="cog-icon" />
+      </div>
+      
+      <div className="customizer-panel">
         <div className="customizer-header">
-          <h3>🎨 Tùy Chỉnh Giao Diện</h3>
-          <button
-            className="close-btn"
-            onClick={() => setIsOpen(false)}
-            aria-label="Close customizer"
-          >
-            ✕
+          <h4>Tùy Chỉnh Màu Sắc</h4>
+          <button className="close-btn" onClick={() => setIsOpen(false)}>
+            <FaTimes />
           </button>
         </div>
-
-        <div className="customizer-tabs">
-          <button
-            className={`tab-btn ${activeTab === 'colors' ? 'active' : ''}`}
-            onClick={() => setActiveTab('colors')}
-          >
-            🎨 Màu Sắc
-          </button>
-          <button
-            className={`tab-btn ${activeTab === 'presets' ? 'active' : ''}`}
-            onClick={() => setActiveTab('presets')}
-          >
-            🎪 Chủ Đề
-          </button>
-          <button
-            className={`tab-btn ${activeTab === 'mode' ? 'active' : ''}`}
-            onClick={() => setActiveTab('mode')}
-          >
-            🌓 Chế Độ
-          </button>
-        </div>
-
-        <div className="customizer-content">
-
-          {/* MODE TAB */}
-          {activeTab === 'mode' && (
-            <div className="tab-content">
-              <div className="customizer-section">
-                <label className="section-title">🌓 Chế Độ Sáng/Tối</label>
-                <button
-                  className={`mode-toggle ${theme.mode}`}
-                  onClick={toggleDarkMode}
-                >
-                  <span className="mode-label">
-                    {theme.mode === 'light' ? '☀️ Chế Độ Sáng' : '🌙 Chế Độ Tối'}
-                  </span>
-                </button>
-                <p className="help-text">
-                  {theme.mode === 'light' 
-                    ? 'Nhấp để chuyển sang chế độ tối' 
-                    : 'Nhấp để chuyển sang chế độ sáng'}
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* COLORS TAB */}
-          {activeTab === 'colors' && (
-            <div className="tab-content">
-              <div className="customizer-section">
-                <label className="section-title">🎯 Màu Chính</label>
-                <div className="color-input-group">
-                  <input
-                    type="color"
-                    value={theme.primaryColor}
-                    onChange={(e) => handleColorChange('primaryColor', e.target.value)}
-                    className="color-picker"
-                  />
-                  <span className="color-value">{theme.primaryColor}</span>
-                </div>
-              </div>
-
-              <div className="customizer-section">
-                <label className="section-title">💜 Màu Phụ</label>
-                <div className="color-input-group">
-                  <input
-                    type="color"
-                    value={theme.secondaryColor}
-                    onChange={(e) => handleColorChange('secondaryColor', e.target.value)}
-                    className="color-picker"
-                  />
-                  <span className="color-value">{theme.secondaryColor}</span>
-                </div>
-              </div>
-
-              <div className="customizer-section">
-                <label className="section-title">✨ Màu Accent</label>
-                <div className="color-input-group">
-                  <input
-                    type="color"
-                    value={theme.accentColor}
-                    onChange={(e) => handleColorChange('accentColor', e.target.value)}
-                    className="color-picker"
-                  />
-                  <span className="color-value">{theme.accentColor}</span>
-                </div>
-              </div>
-
-              <div className="customizer-divider"></div>
-
-              <div className="customizer-section">
-                <label className="section-title">📝 Màu Chữ</label>
-                <div className="color-input-group">
-                  <input
-                    type="color"
-                    value={theme.textColor}
-                    onChange={(e) => handleColorChange('textColor', e.target.value)}
-                    className="color-picker"
-                  />
-                  <span className="color-value">{theme.textColor}</span>
-                </div>
-              </div>
-
-              <div className="customizer-section">
-                <label className="section-title">🏳️ Màu Nền</label>
-                <div className="color-input-group">
-                  <input
-                    type="color"
-                    value={theme.backgroundColor}
-                    onChange={(e) => handleColorChange('backgroundColor', e.target.value)}
-                    className="color-picker"
-                  />
-                  <span className="color-value">{theme.backgroundColor}</span>
-                </div>
-              </div>
-
-              <div className="customizer-divider"></div>
-
-              <button className="reset-btn" onClick={resetTheme}>
-                ↻ Đặt Lại Màu Mặc Định
-              </button>
-            </div>
-          )}
-
-          {/* PRESETS TAB */}
-          {activeTab === 'presets' && (
-            <div className="tab-content">
-              <p className="help-text">Chọn một chủ đề màu nhanh chóng:</p>
-              <div className="preset-buttons">
-                <button
-                  className="preset-btn preset-blue"
-                  onClick={() => handleQuickColorScheme('purple')}
-                  title="Màu xanh tím"
-                >
-                  <span className="preset-icon">💜</span>
-                  Purple
-                </button>
-                <button
-                  className="preset-btn preset-ocean"
-                  onClick={() => handleQuickColorScheme('ocean')}
-                  title="Màu xanh biển"
-                >
-                  <span className="preset-icon">🌊</span>
-                  Ocean
-                </button>
-                <button
-                  className="preset-btn preset-sunset"
-                  onClick={() => handleQuickColorScheme('sunset')}
-                  title="Màu hoàng hôn"
-                >
-                  <span className="preset-icon">🌅</span>
-                  Sunset
-                </button>
-                <button
-                  className="preset-btn preset-forest"
-                  onClick={() => handleQuickColorScheme('forest')}
-                  title="Màu rừng"
-                >
-                  <span className="preset-icon">🌲</span>
-                  Forest
-                </button>
-                <button
-                  className="preset-btn preset-midnight"
-                  onClick={() => handleQuickColorScheme('midnight')}
-                  title="Màu nửa đêm"
-                >
-                  <span className="preset-icon">🌙</span>
-                  Midnight
-                </button>
-                <button
-                  className="preset-btn preset-candy"
-                  onClick={() => handleQuickColorScheme('candy')}
-                  title="Màu kẹo"
-                >
-                  <span className="preset-icon">🍬</span>
-                  Candy
-                </button>
-              </div>
-            </div>
-          )}
-
-        </div>
-
-        <div className="customizer-footer">
-          <p className="footer-text">💾 Tùy chỉnh của bạn được lưu tự động</p>
+        
+        <div className="theme-options">
+          {colorThemes.map((theme) => (
+            <div 
+              key={theme.id} 
+              className="color-swatch"
+              style={{ background: `linear-gradient(135deg, ${theme.primary}, ${theme.secondary})` }}
+              onClick={() => handleThemeChange(theme.primary, theme.secondary)}
+              title={theme.name}
+            ></div>
+          ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

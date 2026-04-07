@@ -1,69 +1,79 @@
-/* Sử dụng biến toàn cục từ main.css */
-
 /* ============================================
-   EDUCATION SECTION BASE
+   EDUCATION SECTION - MODERN & STANDARD CSS
    ============================================ */
 .education-section {
+  /* Design Tokens Component-scoped */
+  --edu-primary: var(--primary-color, #667eea);
+  --edu-secondary: var(--secondary-color, #764ba2);
+  --edu-primary-rgb: var(--primary-rgb, 102, 126, 234);
+  --edu-secondary-rgb: var(--secondary-rgb, 118, 75, 162);
+  --edu-text-main: var(--text-main, #2c3e50);
+  --edu-text-muted: var(--text-muted, #64748b);
+  --edu-bg-card: rgba(255, 255, 255, 0.7);
+  --edu-bg-card-hover: rgba(255, 255, 255, 0.95);
+  --edu-border: rgba(var(--edu-primary-rgb), 0.15);
+  --edu-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  --edu-shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.08), 0 0 20px rgba(var(--edu-primary-rgb), 0.1);
+  
   padding: 100px 20px;
-  background-color: transparent; /* Kế thừa nền tổng của body */
   position: relative;
+  background-color: transparent;
+  color: var(--edu-text-main);
   overflow: hidden;
   min-height: 100vh;
 }
 
-/* Hiệu ứng nền mờ ảo (Glow Orbs) - Độ trong suốt thấp hơn cho nền sáng */
+/* Ambient Glow Effects */
 .education-section::before,
 .education-section::after {
   content: '';
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
+  filter: blur(120px);
   z-index: 0;
-  opacity: 0.08; 
+  opacity: 0.08;
+  pointer-events: none;
 }
 
 .education-section::before {
-  top: 20%;
+  top: 10%;
   left: -10%;
   width: 500px;
   height: 500px;
-  background: var(--primary-color);
+  background: var(--edu-primary);
 }
 
 .education-section::after {
-  bottom: -5%;
-  right: -5%;
-  width: 450px;
-  height: 450px;
-  background: var(--secondary-color);
+  bottom: 10%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: var(--edu-secondary);
 }
 
 .education-container {
-  max-width: 1000px; 
+  max-width: 1000px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
 }
 
-/* ============================================
-   HEADER STYLES
-   ============================================ */
+/* --- SECTION HEADER --- */
 .section-header {
   text-align: center;
-  margin-bottom: 70px;
-  animation: fadeInDown 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 5rem;
+  animation: fadeInDown 0.8s ease-out forwards;
 }
 
 .section-title {
-  font-size: 2.8rem;
+  font-size: 2.5rem;
   font-weight: 800;
-  margin-bottom: 15px;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  letter-spacing: 1.5px;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--edu-primary), var(--edu-secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
   display: inline-block;
   position: relative;
 }
@@ -76,179 +86,176 @@
   transform: translateX(-50%);
   width: 60px;
   height: 4px;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(90deg, var(--edu-primary), var(--edu-secondary));
   border-radius: 2px;
 }
 
 .section-subtitle {
-  font-size: 1.15rem;
-  color: var(--text-muted);
-  margin-top: 20px;
-  letter-spacing: 0.5px;
+  font-size: 1.1rem;
+  color: var(--edu-text-muted);
+  font-weight: 500;
 }
 
 .subsection-title {
-  font-size: 1.8rem;
-  color: var(--text-main);
-  margin-bottom: 40px;
+  font-size: 1.75rem;
+  color: var(--edu-text-main);
   text-align: center;
+  margin-bottom: 3rem;
   font-weight: 700;
-  letter-spacing: 1px;
 }
 
-/* ============================================
-   TIMELINE STYLES (ĐÃ CHỈNH SỬA ĐỂ KHÔNG BỊ CHÌM)
-   ============================================ */
+/* --- TIMELINE LAYOUT --- */
 .education-wrapper {
-  margin-bottom: 80px;
-  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+  margin-bottom: 5rem;
+  animation: fadeInUp 0.8s ease-out 0.2s forwards;
+  opacity: 0;
 }
 
 .education-timeline {
   position: relative;
-  padding: 30px 0;
+  padding: 2rem 0;
 }
 
-/* ĐƯỜNG PHÂN CHIA (TIMELINE LINE) */
+/* Center Line */
 .education-timeline::before {
   content: '';
   position: absolute;
+  top: 0;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 3px; /* Tăng độ dày lên 3px để nổi bật hơn */
-  height: 100%;
-  /* Dùng gradient sắc nét hơn, ít trong suốt ở giữa */
-  background: linear-gradient(to bottom, rgba(14, 165, 233, 0.1), var(--primary-color) 15%, var(--secondary-color) 85%, rgba(79, 70, 229, 0.1));
+  width: 3px;
+  background: linear-gradient(to bottom, 
+    rgba(var(--edu-primary-rgb), 0) 0%, 
+    var(--edu-primary) 15%, 
+    var(--edu-secondary) 85%, 
+    rgba(var(--edu-secondary-rgb), 0) 100%
+  );
   border-radius: 3px;
 }
 
+/* Timeline Item Grid - Sử dụng Grid để phân bổ không gian tự động chính xác */
 .education-item {
-  margin-bottom: 50px;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: 40px;
-  position: relative;
+  grid-template-columns: 1fr 40px 1fr;
   align-items: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
 }
 
 .education-item:last-child {
   margin-bottom: 0;
 }
 
+/* Alternating Sides */
 .education-item:nth-child(odd) .education-content {
-  grid-column: 1;
+  grid-column: 1 / 2;
   text-align: right;
 }
 
 .education-item:nth-child(even) .education-content {
-  grid-column: 3;
+  grid-column: 3 / 4;
   text-align: left;
 }
 
-/* ĐIỂM MỐC TRÊN TIMELINE */
+/* Timeline Dot */
 .education-dot {
-  grid-column: 2;
-  width: 22px; /* To hơn một chút */
-  height: 22px;
-  background: #ffffff; /* Cho nền trắng tinh để nổi lên trên đường gạch */
-  border: 4px solid var(--primary-color);
+  grid-column: 2 / 3;
+  justify-self: center;
+  width: 20px;
+  height: 20px;
+  background-color: #ffffff;
+  border: 4px solid var(--edu-primary);
   border-radius: 50%;
-  box-shadow: 0 0 12px rgba(14, 165, 233, 0.3); /* Đổ bóng xanh */
-  z-index: 2;
+  box-shadow: 0 0 0 4px rgba(var(--edu-primary-rgb), 0.1);
   transition: all 0.3s ease;
+  z-index: 2;
 }
 
 .education-item:hover .education-dot {
-  background: var(--primary-color);
+  background-color: var(--edu-primary);
   transform: scale(1.3);
-  box-shadow: 0 0 18px rgba(14, 165, 233, 0.5);
+  box-shadow: 0 0 15px rgba(var(--edu-primary-rgb), 0.4);
 }
 
-/* ============================================
-   EDUCATION CARDS (Glassmorphism Nền Sáng)
-   ============================================ */
+/* --- EDUCATION CARDS --- */
 .education-content {
-  background: rgba(255, 255, 255, 0.7); 
-  padding: 30px;
-  border-radius: 16px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+  background: var(--edu-bg-card);
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid var(--edu-border);
+  box-shadow: var(--edu-shadow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
   position: relative;
-  overflow: hidden;
 }
 
-/* Viền top màu gradient */
+/* Top Border Accent */
 .education-content::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
-  opacity: 0.5;
-  transition: opacity 0.4s ease;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--edu-primary), var(--edu-secondary));
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .education-content:hover {
   transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 0 20px rgba(14, 165, 233, 0.1);
-  border-color: rgba(14, 165, 233, 0.2);
+  background: var(--edu-bg-card-hover);
+  box-shadow: var(--edu-shadow-hover);
+  border-color: rgba(var(--edu-primary-rgb), 0.3);
 }
 
 .education-content:hover::before {
   opacity: 1;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
 }
 
 .education-content h4 {
-  font-size: 1.3rem;
-  color: var(--text-main);
-  margin-bottom: 8px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--edu-text-main);
 }
 
 .degree {
-  font-weight: 700;
-  color: var(--primary-color);
-  margin-bottom: 8px;
+  display: block;
   font-size: 1rem;
+  font-weight: 600;
+  color: var(--edu-primary);
+  margin-bottom: 0.75rem;
 }
 
 .year {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  margin-bottom: 15px;
-  font-weight: 600;
   display: inline-block;
-  padding: 4px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--edu-text-muted);
   background: rgba(0, 0, 0, 0.04);
-  border-radius: 20px;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
 }
 
 .gpa {
   display: inline-block;
-  background: rgba(14, 165, 233, 0.08);
-  color: var(--primary-color);
-  border: 1px solid rgba(14, 165, 233, 0.2);
-  padding: 6px 14px;
-  border-radius: 8px;
   font-size: 0.85rem;
-  margin-bottom: 15px;
   font-weight: 700;
+  color: var(--edu-primary);
+  background: rgba(var(--edu-primary-rgb), 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(var(--edu-primary-rgb), 0.2);
 }
 
-.education-item:nth-child(odd) .gpa {
-  margin-left: 10px;
-}
-.education-item:nth-child(even) .gpa {
-  margin-right: 10px;
-}
+/* Căn lề cho mác GPA tránh dính sát vào mép */
+.education-item:nth-child(odd) .gpa { margin-left: 0.5rem; }
+.education-item:nth-child(even) .gpa { margin-right: 0.5rem; }
 
 .education-content ul {
   list-style: none;
@@ -256,38 +263,35 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .education-content li {
-  color: var(--text-muted);
   font-size: 0.95rem;
-  line-height: 1.5;
-  font-weight: 500;
+  color: var(--edu-text-muted);
+  line-height: 1.6;
 }
 
-/* ============================================
-   CERTIFICATES / ACHIEVEMENTS (Nền Sáng)
-   ============================================ */
+/* --- CERTIFICATES --- */
 .certificates-wrapper {
-  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
+  animation: fadeInUp 0.8s ease-out 0.4s forwards;
+  opacity: 0;
 }
 
 .certificates-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 30px;
+  gap: 2rem;
 }
 
 .certificate-card {
-  background: rgba(255, 255, 255, 0.7);
-  padding: 35px 25px;
-  border-radius: 16px;
+  background: var(--edu-bg-card);
+  padding: 2.5rem 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--edu-border);
+  box-shadow: var(--edu-shadow);
   text-align: center;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-  backdrop-filter: blur(10px);
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -295,57 +299,52 @@
 
 .certificate-card:hover {
   transform: translateY(-8px);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 1) 100%);
-  border-color: rgba(79, 70, 229, 0.2);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  background: var(--edu-bg-card-hover);
+  box-shadow: var(--edu-shadow-hover);
+  border-color: rgba(var(--edu-primary-rgb), 0.3);
 }
 
 .cert-icon {
   font-size: 2.5rem;
-  margin-bottom: 20px;
-  color: #f59e0b; 
-  display: inline-flex;
-  padding: 15px;
+  color: #f59e0b;
   background: rgba(245, 158, 11, 0.1);
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
+  margin-bottom: 1.5rem;
   transition: all 0.3s ease;
 }
 
 .certificate-card:hover .cert-icon {
   transform: scale(1.1) rotate(-5deg);
-  background: rgba(245, 158, 11, 0.15);
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+  background: rgba(245, 158, 11, 0.2);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
 }
 
 .certificate-card h5 {
   font-size: 1.15rem;
-  color: var(--text-main);
-  margin-bottom: 10px;
-  font-weight: 800;
+  font-weight: 700;
+  color: var(--edu-text-main);
+  margin-bottom: 0.5rem;
 }
 
 .certificate-card .issuer {
-  color: var(--primary-color);
-  font-weight: 700;
-  margin-bottom: 10px;
   font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--edu-primary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  margin-bottom: 1rem;
 }
 
 .certificate-card .year {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  margin: 0;
-  background: rgba(0, 0, 0, 0.04);
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-weight: 600;
+  margin-bottom: 0;
 }
 
-/* ============================================
-   ANIMATIONS
-   ============================================ */
+/* --- ANIMATIONS --- */
 @keyframes fadeInDown {
   from { opacity: 0; transform: translateY(-30px); }
   to { opacity: 1; transform: translateY(0); }
@@ -356,12 +355,9 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ============================================
-   RESPONSIVE DESIGN
-   ============================================ */
+/* --- RESPONSIVE --- */
 @media (max-width: 1024px) {
   .education-section { padding: 80px 20px; }
-  .section-title { font-size: 2.2rem; }
 }
 
 @media (max-width: 768px) {
@@ -369,44 +365,35 @@
   
   .education-timeline::before {
     left: 20px;
-    transform: none;
   }
 
   .education-item {
     grid-template-columns: 40px 1fr;
-    gap: 25px;
+    gap: 1.5rem;
   }
 
   .education-item:nth-child(odd) .education-content,
   .education-item:nth-child(even) .education-content {
-    grid-column: 2;
+    grid-column: 2 / 3;
     text-align: left;
   }
 
-  .education-item:nth-child(odd) .gpa { margin-left: 0; margin-right: 10px; }
-
   .education-dot {
-    grid-column: 1;
+    grid-column: 1 / 2;
     left: 20px;
     position: absolute;
-    transform: translateX(-50%);
-    margin-top: 15px;
-  }
-  
-  .education-item:hover .education-dot {
-    transform: translateX(-50%) scale(1.3);
   }
 
-  .certificates-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  /* Reset margin khi responsive */
+  .education-item:nth-child(odd) .gpa,
+  .education-item:nth-child(even) .gpa {
+    margin: 0 0.5rem 1rem 0;
+  }
 }
 
 @media (max-width: 480px) {
   .education-section { padding: 50px 15px; }
-  .section-title { font-size: 1.8rem; }
-  
-  .education-content { padding: 25px 20px; }
-  .education-content h4 { font-size: 1.1rem; }
-  
+  .section-title { font-size: 2rem; }
+  .education-content { padding: 1.5rem; }
   .certificates-grid { grid-template-columns: 1fr; }
-  .subsection-title { font-size: 1.5rem; }
 }
